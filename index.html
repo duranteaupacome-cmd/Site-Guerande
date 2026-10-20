@@ -1,0 +1,146 @@
+/* ===== RÉGLAGES ===== */
+:root {
+  --hauteur-bande: 90px;
+  --encre: #1a1a1a;
+  --papier: #f6f5f1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--papier);
+  color: var(--encre);
+  font-family: 'Manrope', Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* ===== BANDE BLANCHE EN HAUT ===== */
+.bande {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--hauteur-bande);
+  z-index: 20;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.titres h1 {
+  font-weight: 400;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.sous-titre {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  opacity: 0.6;
+}
+
+/* ===== FOND TOPOGRAPHIQUE ===== */
+#topographie {
+  position: fixed;
+  top: var(--hauteur-bande);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--hauteur-bande));
+  z-index: 0;
+  opacity: 0;
+  animation: apparition 1.5s ease forwards;
+}
+
+/* ===== BOUTON MENU (3 barres) ===== */
+.bouton-menu {
+  position: relative;
+  z-index: 30;
+  width: 32px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bouton-menu span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--encre);
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+.menu-ouvert .bouton-menu span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.menu-ouvert .bouton-menu span:nth-child(2) { opacity: 0; }
+.menu-ouvert .bouton-menu span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+/* ===== MENU PLEIN ÉCRAN ===== */
+.menu {
+  position: fixed;
+  top: var(--hauteur-bande);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: rgba(246, 245, 241, 0.92);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.menu-ouvert .menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu a {
+  color: var(--encre);
+  text-decoration: none;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: opacity 0.3s;
+}
+
+.menu a:hover {
+  opacity: 0.5;
+}
+
+@keyframes apparition {
+  to { opacity: 1; }
+}
+
+/* ===== TÉLÉPHONE ===== */
+@media (max-width: 600px) {
+  :root { --hauteur-bande: 70px; }
+  .bande { padding: 0 20px; }
+  .titres h1 { font-size: 0.85rem; letter-spacing: 0.04em; }
+  .sous-titre { font-size: 0.6rem; }
+}
