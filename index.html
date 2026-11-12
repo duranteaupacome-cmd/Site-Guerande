@@ -1,146 +1,269 @@
-/* ===== RÉGLAGES ===== */
-:root {
-  --hauteur-bande: 90px;
-  --encre: #1a1a1a;
-  --papier: #f6f5f1;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <title>AADP — Architecture</title>
 
-html, body {
-  height: 100%;
-}
+  <meta
+    name="description"
+    content="AADP Architecture aux Sables-d’Olonne : projets, actualités, agence et contact."
+  >
 
-body {
-  background-color: var(--papier);
-  color: var(--encre);
-  font-family: 'Manrope', Arial, sans-serif;
-  overflow: hidden;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
 
-/* ===== BANDE BLANCHE EN HAUT ===== */
-.bande {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--hauteur-bande);
-  z-index: 20;
-  background-color: #ffffff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-}
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
 
-.titres h1 {
-  font-weight: 400;
-  font-size: 1.35rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-  line-height: 1.2;
-}
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-.sous-titre {
-  margin-top: 4px;
-  font-size: 0.72rem;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  opacity: 0.6;
-}
+  <header class="header" id="header">
+    <a class="brand" href="#accueil" aria-label="AADP — Accueil">
+      <span class="brand-art" aria-hidden="true">
+        <span class="brand-variant brand-variant--light">
+          <img class="brand-image" data-logo="light" alt="" hidden>
+          <span class="brand-fallback">A.A.D.P.</span>
+        </span>
 
-/* ===== FOND TOPOGRAPHIQUE ===== */
-#topographie {
-  position: fixed;
-  top: var(--hauteur-bande);
-  left: 0;
-  width: 100%;
-  height: calc(100% - var(--hauteur-bande));
-  z-index: 0;
-  opacity: 0;
-  animation: apparition 1.5s ease forwards;
-}
+        <span class="brand-variant brand-variant--dark">
+          <img class="brand-image" data-logo="dark" alt="" hidden>
+          <span class="brand-fallback">A.A.D.P.</span>
+        </span>
+      </span>
+    </a>
 
-/* ===== BOUTON MENU (3 barres) ===== */
-.bouton-menu {
-  position: relative;
-  z-index: 30;
-  width: 32px;
-  height: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+    <button
+      class="menu-button"
+      id="open-menu"
+      type="button"
+      aria-haspopup="dialog"
+      aria-controls="navigation"
+      aria-expanded="false"
+    >
+      <span class="button-label">Menu</span>
 
-.bouton-menu span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background-color: var(--encre);
-  transition: transform 0.4s ease, opacity 0.3s ease;
-}
+      <span class="burger" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </header>
 
-.menu-ouvert .bouton-menu span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-.menu-ouvert .bouton-menu span:nth-child(2) { opacity: 0; }
-.menu-ouvert .bouton-menu span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+  <dialog
+    class="navigation"
+    id="navigation"
+    aria-label="Menu principal"
+  >
+    <div class="menu-header">
+      <a class="brand" href="#accueil" aria-label="AADP — Accueil">
+        <span class="brand-art" aria-hidden="true">
+          <span class="brand-variant brand-variant--dark">
+            <img class="brand-image" data-logo="dark" alt="" hidden>
+            <span class="brand-fallback">A.A.D.P.</span>
+          </span>
+        </span>
+      </a>
 
-/* ===== MENU PLEIN ÉCRAN ===== */
-.menu {
-  position: fixed;
-  top: var(--hauteur-bande);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10;
-  background-color: rgba(246, 245, 241, 0.92);
-  backdrop-filter: blur(8px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
-}
+      <button
+        class="close-button"
+        id="close-menu"
+        type="button"
+        autofocus
+      >
+        <span class="button-label">Fermer</span>
+        <span class="close-icon" aria-hidden="true"></span>
+      </button>
+    </div>
 
-.menu-ouvert .menu {
-  opacity: 1;
-  visibility: visible;
-}
+    <div class="menu-body">
+      <nav class="main-links" aria-label="Navigation principale">
+        <button
+          class="projects-toggle"
+          id="projects-toggle"
+          type="button"
+          aria-controls="projects-submenu"
+          aria-expanded="false"
+        >
+          Projets
+          <span class="submenu-symbol" aria-hidden="true">+</span>
+        </button>
 
-.menu a {
-  color: var(--encre);
-  text-decoration: none;
-  font-weight: 300;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: opacity 0.3s;
-}
+        <span class="separator" aria-hidden="true">/</span>
+        <a href="#actualites">Actualités</a>
 
-.menu a:hover {
-  opacity: 0.5;
-}
+        <span class="separator" aria-hidden="true">/</span>
+        <a href="#agence">Agence</a>
 
-@keyframes apparition {
-  to { opacity: 1; }
-}
+        <span class="separator" aria-hidden="true">/</span>
+        <a href="#contact">Contact</a>
+      </nav>
 
-/* ===== TÉLÉPHONE ===== */
-@media (max-width: 600px) {
-  :root { --hauteur-bande: 70px; }
-  .bande { padding: 0 20px; }
-  .titres h1 { font-size: 0.85rem; letter-spacing: 0.04em; }
-  .sous-titre { font-size: 0.6rem; }
-}
+      <nav
+        class="submenu"
+        id="projects-submenu"
+        aria-label="Catégories de projets"
+        hidden
+      >
+        <a class="all-projects" href="#projets">
+          Toutes les catégories ↗
+        </a>
+
+        <div class="categories" id="menu-categories"></div>
+      </nav>
+    </div>
+
+    <div class="menu-footer">Les Sables-d’Olonne</div>
+  </dialog>
+
+  <main id="contenu" tabindex="-1">
+    <section
+      class="hero"
+      id="accueil"
+      aria-label="Présentation de projets AADP"
+    >
+      <h1 class="sr-only">
+        AADP Architecture — Les Sables-d’Olonne
+      </h1>
+
+      <div class="slides" id="slides" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+
+      <div class="photo-help" id="photo-help">
+        <p id="photo-status" role="status">
+          Chargement des images de présentation…
+        </p>
+
+        <div id="manual-choice" hidden>
+          <label for="photo-input">
+            Afficher temporairement tes images :
+          </label>
+
+          <input
+            id="photo-input"
+            type="file"
+            accept="image/*"
+            multiple
+          >
+
+          <p>
+            Cet aperçu n’est pas conservé après actualisation.
+            Les fichiers doivent être présents dans Images/Accueil.
+          </p>
+        </div>
+
+        <noscript>
+          Active JavaScript pour utiliser le menu et le diaporama.
+        </noscript>
+      </div>
+
+      <button
+        class="motion-control"
+        id="motion-control"
+        type="button"
+        hidden
+      >
+        Mettre le diaporama en pause
+      </button>
+
+      <p class="hero-location">Les Sables-d’Olonne</p>
+    </section>
+
+    <section
+      class="section"
+      id="projets"
+      aria-labelledby="projects-title"
+    >
+      <div class="section-heading">
+        <h2 id="projects-title">Projets</h2>
+
+        <a
+          class="reset-category"
+          id="reset-category"
+          href="#projets"
+          hidden
+        >
+          Toutes les catégories
+        </a>
+      </div>
+
+      <p
+        class="selected-category"
+        id="selected-category"
+        hidden
+      ></p>
+
+      <nav
+        class="project-category-list"
+        id="project-category-list"
+        aria-label="Choisir une catégorie de projets"
+      ></nav>
+
+      <div
+        class="project-grid"
+        id="project-grid"
+        role="list"
+        aria-label="Emplacements des projets"
+        hidden
+      ></div>
+
+      <p class="sr-only" id="project-status" role="status"></p>
+    </section>
+
+    <section
+      class="section"
+      id="actualites"
+      aria-labelledby="news-title"
+    >
+      <h2 id="news-title">Actualités</h2>
+    </section>
+
+    <section
+      class="section"
+      id="agence"
+      aria-labelledby="agency-title"
+    >
+      <h2 id="agency-title">Agence</h2>
+
+      <div class="agency-information">
+        <p>AADP — Thierry Duranteau</p>
+        <p>Les Sables-d’Olonne</p>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="contact"
+      aria-labelledby="contact-title"
+    >
+      <div class="contact-layout">
+        <h2 id="contact-title">Contact</h2>
+
+        <div class="contact-details">
+          <p>AADP — Thierry Duranteau</p>
+          <p>Les Sables-d’Olonne</p>
+
+          <div class="contact-information">
+            <p>Adresse à compléter</p>
+            <p>E-mail à compléter</p>
+            <p>Téléphone à compléter</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> AADP</span>
+    <a href="#accueil">Retour en haut ↑</a>
+  </footer>
+</body>
+</html>
